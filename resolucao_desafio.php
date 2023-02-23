@@ -1,18 +1,23 @@
 <?php
- 
-$nome = '';
- 
-if (isset($nome) && empty($nome) == false) {
-    echo $nome;
+
+function classificacaoImc($peso, $altura) {
+    $imc = $peso / ($altura * $altura);
+    
+    if($imc < 18.5) {
+        return 'MAGREZA';
+    } else if($imc < 24.9) {
+        return 'NORMAL';
+    } else if($imc < 29.9) {
+        return 'SOBREPESO';
+    } else if($imc < 39.9) {
+        return 'OBESIDADE';
+    } else {
+        return 'OBESIDADE GRAVE';
+    }
 }
- 
-function retornarEnderecoFormatado($endereco, $quantidade_lixo)
-{
-    return 'Endereço: ' . $endereco . '. Quantidade de lixo: ' . $quantidade_lixo . '.';
-}
- 
+
 ?>
- 
+
 <!DOCTYPE html>
 <html lang="en">
  
@@ -21,25 +26,26 @@ function retornarEnderecoFormatado($endereco, $quantidade_lixo)
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Meu Documento</title>
+    <title>Calculo IMC</title>
 </head>
  
 <body class="bg-gray-100">
-    <form action="codigo2.php" method="GET" class="w-full max-w-[768px] flex flex-col p-10 border shadow mx-auto mt-10 bg-white space-y-3">
+    <form action="resolucao_desafio.php" method="GET" class="w-full max-w-[768px] flex flex-col p-10 border shadow mx-auto mt-10 bg-white space-y-3">
         <?php
-        if (isset($_GET['endereco']) && isset($_GET['quantidadeLixo'])) :
+        if (isset($_GET['altura']) && isset($_GET['peso'])) :
         ?>
-            <div><b>Endereço:</b> <?php echo $_GET['endereco'] ?></div>
-            <div><b>Quantidade de Lixo:</b> <?php echo $_GET['quantidadeLixo'] ?></div>
-            <a href="index.php" class="text-blue-500 font-bold">Voltar</a>
+            <div><b>Altura(m):</b> <?php echo $_GET['altura'] ?></div>
+            <div><b>Peso(kg):</b> <?php echo $_GET['peso'] ?></div>
+            <div><b>Seu IMC é de: </b> <?php echo $_GET['peso'] / ($_GET['altura'] * $_GET['altura']) ?></div>
+            <div><b>Classificação de IMC: </b> <?php echo classificacaoImc($_GET['peso'], $_GET['altura']) ?></div>
+            <a href="resolucao_desafio.php" class="text-blue-500 font-bold">Voltar</a>
         <?php
         return;
         endif;
         ?>
  
-        <input type="text" name="endereco" placeholder="Endereço" class="py-2 px-2 border border-gray-300 outline-none">
-        <input type="text" name="complemento" placeholder="Complemento" class="py-2 px-2 border border-gray-300 outline-none">
-        <input type="number" name="quantidadeLixo" placeholder="Quantidade de lixo" class="py-2 px-2 border border-gray-300 outline-none">
+        <input type="number" step="0.01" name="altura" placeholder="Altura(m), ex: 1.78" class="py-2 px-2 border border-gray-300 outline-none">
+        <input type="number" step="0.01" name="peso" placeholder="Peso(kg), ex: 78" class="py-2 px-2 border border-gray-300 outline-none">
         <button type="submit" class="bg-blue-500 text-white font-bold py-2">Enviar</button>
     </form>
 </body>

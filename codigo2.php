@@ -31,7 +31,7 @@ function retornarEnderecoFormatado($endereco, $quantidade_lixo)
         ?>
             <div><b>Endereço:</b> <?php echo $_GET['endereco'] ?></div>
             <div><b>Quantidade de Lixo:</b> <?php echo $_GET['quantidadeLixo'] ?></div>
-            <a href="index.php" class="text-blue-500 font-bold">Voltar</a>
+            <a href="codigo2.php" class="text-blue-500 font-bold">Voltar</a>
         <?php
         return;
         endif;
